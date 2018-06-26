@@ -1,0 +1,33 @@
+{
+  "private": false,
+  "name": "heatprocessor",
+  "version": "0.0.1",
+  "description": "Head Processor Exibition software",
+  "scripts": {
+    "test": "yarn && node node_modules/karma/bin/karma start ./karma.conf.js --single-run --env.develop",
+    "test:watch": "yarn && node node_modules/karma/bin/karma start ./karma.conf.js --env.develop",
+    "test:chrome-watch": "yarn && node node_modules/karma/bin/karma start ./karma.conf.js --env.develop --browsers Chrome",
+    "make": "node_modules/.bin/webpack",
+    "make-watcher": "node_modules/.bin/webpack --progress --colors --watch --env.develop",
+    "make-watcherd": "node_modules/.bin/webpack --progress --colors --watch --env.develop -d",
+    "update-deps": "yarn && cpy node_modules/core-js/client/shim.js ./ --rename=core.js",
+    "build": "npm run update-deps && npm run make",
+    "watch": "npm run update-deps && npm run make-watcher",
+    "watchd": "npm run update-deps && npm run make-watcherd",
+    "mwatch": "echo \"USE 'npm run watch' LUKE\" && npm run watch",
+    "keycheck": "node js/lang/key-check.js",
+    "update-frameworks": "cp -R ../../NestedReact/lib/ ./js/lib/nestedreact/lib && cp -R ../../NestedReact/src/ ./js/lib/nestedreact/src && cp -R ../../NestedTypes/lib/ ./js/lib/nestedtypes/lib && cp -R ../../NestedTypes/src/ ./js/lib/nestedtypes/src && cp -R ../../NestedTypes/endpoints/ ./js/lib/endpoints"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alexanderevgrafov/heatprocessor"
+  },
+  "author": "Alexander EVGRAFOV",
+  "license": "MIT",
+  "homepage": "https://github.com/Volicon/observer-frontend",
+  "dependencies": {
+    "socket.io": "^2.1.1"
+  },
+  "devDependencies": {},
+  "peerDependencies": {}
+}
