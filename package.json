@@ -1,22 +1,11 @@
 {
-  "private": false,
   "name": "heatprocessor",
   "version": "0.0.1",
   "description": "Head Processor Exibition software",
+  "private": true,
   "scripts": {
-    "test": "yarn && node node_modules/karma/bin/karma start ./karma.conf.js --single-run --env.develop",
-    "test:watch": "yarn && node node_modules/karma/bin/karma start ./karma.conf.js --env.develop",
-    "test:chrome-watch": "yarn && node node_modules/karma/bin/karma start ./karma.conf.js --env.develop --browsers Chrome",
     "make": "node_modules/.bin/webpack",
-    "make-watcher": "node_modules/.bin/webpack --progress --colors --watch --env.develop",
-    "make-watcherd": "node_modules/.bin/webpack --progress --colors --watch --env.develop -d",
-    "update-deps": "yarn && cpy node_modules/core-js/client/shim.js ./ --rename=core.js",
-    "build": "npm run update-deps && npm run make",
-    "watch": "npm run update-deps && npm run make-watcher",
-    "watchd": "npm run update-deps && npm run make-watcherd",
-    "mwatch": "echo \"USE 'npm run watch' LUKE\" && npm run watch",
-    "keycheck": "node js/lang/key-check.js",
-    "update-frameworks": "cp -R ../../NestedReact/lib/ ./js/lib/nestedreact/lib && cp -R ../../NestedReact/src/ ./js/lib/nestedreact/src && cp -R ../../NestedTypes/lib/ ./js/lib/nestedtypes/lib && cp -R ../../NestedTypes/src/ ./js/lib/nestedtypes/src && cp -R ../../NestedTypes/endpoints/ ./js/lib/endpoints"
+    "build": "npm run make"
   },
   "repository": {
     "type": "git",
@@ -25,15 +14,23 @@
   "author": "Alexander EVGRAFOV",
   "license": "MIT",
   "homepage": "https://github.com/Volicon/observer-frontend",
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
+    "css-loader": "^0.28.11",
+    "file-loader": "^1.1.11",
+    "fs": "0.0.1-security",
     "jquery": "^3.3.1",
     "jquery-ui": "^1.12.1",
+    "json-loader": "^0.5.7",
+    "less-loader": "^4.1.0",
     "query-string": "^6.1.0",
     "requirejs": "^2.3.5",
     "requirejs-plugins": "^1.0.2",
     "socket.io": "^2.1.1",
-    "underscore": "^1.9.1"
+    "style-loader": "^0.21.0",
+    "underscore": "^1.9.1",
+    "webpack": "^4.12.2",
+    "webpack-cli": "^3.0.8"
   },
-  "devDependencies": {},
   "peerDependencies": {}
 }

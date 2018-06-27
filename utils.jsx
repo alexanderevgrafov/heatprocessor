@@ -1,8 +1,6 @@
-module.exports = {
-
-print: function(){
+export print =  function(){
     console.log.apply(this, arguments);
 }
 
-}
+
 
