@@ -1,12 +1,13 @@
+let webpack = require('webpack');
 let path = require('path');
+//let Clean                 = require( 'clean-webpack-plugin' );
+
 let dist = path.join(__dirname, process.env.WEBPACK_DIST || 'bundles');
 
 let config = {
-    entry: {
-        central: './central.js',
-        admin: './admin.js',
-        mono: './mono.js'
-    },
+    mode: 'development',
+
+    entry: './browser/client.js',
 
     output: {
         path: dist,
@@ -14,12 +15,26 @@ let config = {
         filename: '[name].js',
     },
 
+    devtool: 'source-map',
+
+    plugins: [
+        new webpack.ProvidePlugin({
+            $: "jquery",
+            jQuery: 'jquery',
+            _: "underscore"
+        }),
+
+        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+
+        new webpack.optimize.OccurrenceOrderPlugin(true)
+    ],
+
     module: {
         rules: [
             {
-                test    : /\.jsx?$/,
-                exclude : /(node_modules|lib)/,
-                loader  : 'babel-loader'
+                test: /\.jsx?$/,
+                exclude: /node_modules/,
+                loader: 'babel-loader'
             },
             {
                 test: /\.json$/,
