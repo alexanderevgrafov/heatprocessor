@@ -7,11 +7,17 @@ let dist = path.join(__dirname, process.env.WEBPACK_DIST || 'bundles');
 let config = {
     mode: 'development',
 
-    entry: './browser/client.js',
-
+    entry: './src/central.js',
+//    entry: './src/www/client.js',
+/*
+    entry: {
+        www:'./src/www/client.js',
+        central:'./src/central.js'
+    },
+*/  
     output: {
         path: dist,
-        publicPath: '/bundles/',
+        publicPath: '/dist/',
         filename: '[name].js',
     },
 
@@ -29,11 +35,16 @@ let config = {
         new webpack.optimize.OccurrenceOrderPlugin(true)
     ],
 
+   resolve : {
+        modules : [ './node_modules'],
+        extensions : [ '.ts', '.js' ]
+    },
+
     module: {
         rules: [
             {
-                test: /\.jsx?$/,
-                exclude: /node_modules/,
+                test    : /\.jsx?$/,
+                exclude : /(node_modules)/,
                 loader: 'babel-loader'
             },
             {
