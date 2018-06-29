@@ -1,7 +1,7 @@
 require('source-map-support').install();
 
 import { define, Record } from 'type-r'
-import socketio from 'socket.io'
+import * as socketio from 'socket.io'
 
 require('dotenv').config();
 
@@ -29,3 +29,19 @@ const state = new State(),
     say = console.log,
     io = socketio.listen(process.env.central_server_port);
 
+
+io.on('connection', socket => {
+    socket.on('disconnect', () => say('WS client is disconnected'));
+    say('WS client is connected');
+
+    socket.emit('news', {hello: 'world'});
+
+    socket.on('hola', data => {
+        say('Hola from', data);
+        io.sockets.emit('news', {welcome: data.name});
+    });
+
+    socket.on('update', data => {
+        say('Update appears', data)
+    })
+});

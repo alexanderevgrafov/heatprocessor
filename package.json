@@ -5,10 +5,7 @@
   "private": true,
   "scripts": {
     "make": "node_modules/.bin/webpack",
-    "build": "npm run make && npm run m_c && npm run m_m && npm run m_a",
-    "m_c": "node_modules/.bin/babel ./src/central.js --out-file dist/central.js",
-    "m_m": "node_modules/.bin/babel ./src/mono.js --out-file dist/mono.js",
-    "m_a": "node_modules/.bin/babel ./src/admin.js --out-file dist/admin.js"
+    "build": "npm run make && tsc"
   },
   "repository": {
     "type": "git",

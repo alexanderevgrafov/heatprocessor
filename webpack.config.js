@@ -2,23 +2,16 @@ let webpack = require('webpack');
 let path = require('path');
 //let Clean                 = require( 'clean-webpack-plugin' );
 
-let dist = path.join(__dirname, process.env.WEBPACK_DIST || 'bundles');
+let dist = path.join(__dirname, process.env.WEBPACK_DIST || 'dist');
 
 let config = {
     mode: 'development',
+    
+    entry: './src/www/client.js',
 
-    entry: './src/central.js',
-//    entry: './src/www/client.js',
-/*
-    entry: {
-        www:'./src/www/client.js',
-        central:'./src/central.js'
-    },
-*/  
     output: {
         path: dist,
-        publicPath: '/dist/',
-        filename: '[name].js',
+        filename: 'client.js'
     },
 
     devtool: 'source-map',
