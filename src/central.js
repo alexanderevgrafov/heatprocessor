@@ -1,13 +1,13 @@
 require( 'source-map-support' ).install();
 import * as socketio from 'socket.io'
-import { SystemState } from "./SystemState.js";
+import { GlobalState } from "./SystemState.js";
 import * as fs from "fs"
 
 require( 'dotenv' ).config();
 
 const SAVED_STATE_FILE = './saved_state.json';
 
-const state = new SystemState(),
+const state = new GlobalState(),
       say   = console.log,
       io    = socketio.listen( process.env.central_server_port );
 
@@ -19,32 +19,43 @@ catch( err ){
     console.log( 'Failed to restore a state....' );
 }
 
+state.on( 'change', () =>{
+    io.sockets.emit( 'sysupdate', state.toJSON() );
+
+    try{
+        fs.writeFileSync( SAVED_STATE_FILE, JSON.stringify( state.toJSON() ) );
+    }
+} );
+
 io.on( 'connection', socket =>{
     socket.on( 'disconnect', () => say( 'WS client is disconnected' ) );
     say( 'WS client is connected' );
 
-    socket.emit( 'news', { hello : 'world' } );
-
+    /*--------- Client connected ------------------*/
     socket.on( 'hola', data =>{
         say( 'Hola from', data );
         io.sockets.emit( 'sysupdate', state.toJSON() );
+
+        switch( data.name ){
+            case 'Settings':
+                /*--------- Settings page changed parameters -----------*/
+                socket.on( 'settings', data =>{
+                    state.set( data );
+                } );
+                break;
+            case 'Mono':
+                /*--------- Mono controllers touched -----------*/
+                socket.on( 'mono-change', data =>{
+                    state.setFromMono( data );
+                } );
+
+                break;
+        }
     } );
 
-    socket.on( 'settings', data =>{
-        state.set( data );
-        io.sockets.emit( 'sysupdate', state.toJSON() );
+
+    /*--------- Mono controllers touched -----------*/
+    socket.on( 'mono-change', data =>{
+        state.setFromMono( data );
     } )
-
 } );
-
-const grasefulExit = () =>{
-    console.log('---------');
-
-    const text = JSON.stringify( state.toJSON() );
-    fs.writeFileSync( SAVED_STATE_FILE, text );
-
-    console.log( "Terminating...", text );
-    process.abort();
-};
-
-process.on( 'SIGINT', grasefulExit );

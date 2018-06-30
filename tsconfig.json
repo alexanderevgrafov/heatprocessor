@@ -9,7 +9,7 @@
         "jsx": "react",
         "moduleResolution": "node",
         "sourceMap": true,
-        "outDir": "dist",
+        "outDir": "./dist",
         "alwaysStrict": true,
         "allowJs": true
     },
@@ -20,7 +20,7 @@
 
     "exclude": [
         "node_modules",
-        "../node_modules",
+        "../node_modules"
     ],
 
     "compileOnSave": true

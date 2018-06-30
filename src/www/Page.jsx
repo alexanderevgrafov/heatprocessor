@@ -2,7 +2,7 @@ import React, { define } from 'react-mvx'
 import { Record } from 'type-r'
 import * as queryString from 'query-string'
 import * as io from 'socket.io-client'
-import { SystemState } from "../SystemState.js";
+import { GlobalState } from "../SystemState.js";
 import './styles.less'
 
 @define
@@ -10,7 +10,7 @@ export class State extends Record {
     static attributes = {
         name   : 'Unknown dino',
         host   : '127.0.0.1:8001',
-        sys    : SystemState,
+        sys    : GlobalState,
         socket : null
     };
 
@@ -44,5 +44,6 @@ export class View extends React.Component {
         const { sys } = this.state;
 
         sys.set( data );
+        console.log('System update', data)
     }
 }
