@@ -16,11 +16,12 @@ io.on('connection', socket => {
 
     socket.on('hola', data => {
         say('Hola from', data);
-        io.sockets.emit('news', {welcome: data.name});
+        io.sockets.emit('sysupdate', state.toJSON());
     });
 
     socket.on('settings', data => {
-        say('Settings appear');
         state.set(data);
+        io.sockets.emit('sysupdate', state.toJSON());
     })
+
 });

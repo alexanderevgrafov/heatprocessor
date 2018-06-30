@@ -1,27 +1,17 @@
-import React, { define, Collection, Record } from 'nestedreact'
+import  React, { define } from 'react-mvx'
 import * as ReactDOM from 'react-dom'
-import { Page } from "./Page.jsx";
+import * as Page from "./Page.jsx";
 
 @define
-class Application extends Page {
-    onConnect = () =>{
-        const { socket, name } = this.state;
-
-        console.log( 'Connected to central server' );
-        socket.emit( 'hola', { name } );
-    };
-
-    onSystemUpdate = sys =>{
-        const { socket, name } = this.state;
-
-        console.log( 'system state is ', sys );
-    };
+class Application extends Page.View {
 
     render(){
-        const { name } = this.state;
+        const { name, my } = this.state;
 
         return <div className='module-page page'>
             <div className='pageTitle'>{'I\'m ' + name}</div>
+            <p>Temp = { my.t }</p>
+            <p>Mode = { my.mode }</p>
         </div>
     }
 }

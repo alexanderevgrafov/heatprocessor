@@ -8,6 +8,10 @@ export class SystemState extends Record {
             airtower : Record.defaults( {
                 t    : 0,
                 mode : 0
+            } ),
+            hotboiler : Record.defaults( {
+                t    : 0,
+                mode : 0
             } )
         } ),
         settings : Record.defaults( {

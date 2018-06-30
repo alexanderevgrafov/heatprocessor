@@ -1,4 +1,4 @@
-import React, { define, Link } from 'nestedreact'
+import  React, { define, Link } from 'react-mvx'
 import RcSlider from 'rc-slider'
 
 import 'rc-slider/assets/index.css'
@@ -17,8 +17,8 @@ export class Slider extends React.Component {
 
         return <div className='c_slider'>
             {label ? <div className="label">{label}</div> : null}
-            <RcSlider min={min} max={max} defaultValue={ valueLink.value } onChange={ v=>valueLink.set(v)}/>
             <div className="value">{valueLink.value}</div>
+            <RcSlider min={min} max={max} value={ valueLink.value } onChange={ v=>valueLink.set(v)}/>
         </div>
     }
 }
