@@ -8,8 +8,10 @@ import cx from "classnames"
 const handlersOptions = [
     { param : 'system.airtower.t' },
     { param : 'system.hotboiler.t' },
-    { param : 'system.airtower.mode' },
-    { param : 'system.hotboiler.mode' }
+    { param : 'system.coldboiler.t' },
+    { param : 'system.stelattor.t' },
+    { param : 'system.smokerecup.t' },
+    { param : 'system.wwrecup.t' }
 ];
 
 @define
@@ -32,7 +34,6 @@ class HandlersSettings extends React.Component {
         const { conf } = this.state;
 
         return <div className="control-group handlers-assos">
-            <NumberInput valueLink={conf.linkAt( 'rate' )}/>
             {
                 _.map( _.range( 8 ), num =>{
                     const h = conf[ 'h' + num ];

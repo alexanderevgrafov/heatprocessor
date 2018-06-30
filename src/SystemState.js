@@ -1,17 +1,23 @@
 import { define, Record } from 'type-r'
 
 @define
+export class ModuleState extends Record {
+    static attributes = {
+        t    : 0,
+        mode : 0
+    }
+}
+
+@define
 export class System extends Record {
     static attributes = {
-        mode      : 0,
-        airtower  : Record.defaults( {
-            t    : 0,
-            mode : 0
-        } ),
-        hotboiler : Record.defaults( {
-            t    : 0,
-            mode : 0
-        } )
+        mode       : 0,
+        airtower   : ModuleState,
+        coldboiler : ModuleState,
+        hotboiler  : ModuleState,
+        stellator  : ModuleState,
+        smokerecup : ModuleState,
+        wwrecup    : ModuleState
     }
 }
 
@@ -26,7 +32,6 @@ export class MonoHandlerConf extends Record {
 @define
 export class MonoSettings extends Record {
     static attributes = {
-        rate : 50,
         h0   : MonoHandlerConf,
         h1   : MonoHandlerConf,
         h2   : MonoHandlerConf,
@@ -50,10 +55,21 @@ export class Settings extends Record {
 }
 
 @define
+export class Weather extends Record {
+    static attributes = {
+        sun    : true,
+        clouds : true,
+        night  : false,
+        summer : true
+    }
+}
+
+@define
 export class GlobalState extends Record {
     static attributes = {
         system   : System,
-        settings : Settings
+        settings : Settings,
+        weather  : Weather
     };
 
     setFromMono( arr ){
