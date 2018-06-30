@@ -7,11 +7,14 @@ let dist = path.join(__dirname, process.env.WEBPACK_DIST || 'dist');
 let config = {
     mode: 'development',
     
-    entry: './src/www/client.js',
+    entry: {
+        client:'./src/www/Client.jsx',
+        settings:'./src/www/Settings.jsx',
+    },
 
     output: {
         path: dist,
-        filename: 'client.js'
+        filename: '[name].js'
     },
 
     devtool: 'source-map',
@@ -38,7 +41,7 @@ let config = {
             {
                 test    : /\.jsx?$/,
                 exclude : /(node_modules)/,
-                loader: 'babel-loader'
+                loader: 'ts-loader'
             },
             {
                 test: /\.json$/,
