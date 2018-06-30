@@ -23,6 +23,12 @@
       ]
     ]
   },
+
+  "nodemonConfig": {
+    "watch": ["dist/*"],
+    "signal": "SIGTERM"
+  },
+
   "author": "Alexander EVGRAFOV",
   "license": "MIT",
   "homepage": "https://github.com/Volicon/observer-frontend",
