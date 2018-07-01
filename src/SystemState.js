@@ -12,12 +12,13 @@ export class ModuleState extends Record {
 export class System extends Record {
     static attributes = {
         mode       : 0,
-        airtower   : ModuleState,
-        coldboiler : ModuleState,
-        hotboiler  : ModuleState,
         stellator  : ModuleState,
         smokerecup : ModuleState,
-        wwrecup    : ModuleState
+        coldboiler : ModuleState,
+        hotboiler  : ModuleState,
+        airtower   : ModuleState,
+        wwrecup    : ModuleState,
+        heataccum  : ModuleState
     }
 }
 

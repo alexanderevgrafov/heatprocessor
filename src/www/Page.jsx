@@ -27,7 +27,7 @@ export class View extends React.Component {
 
         state.set( params );
 
-        state.socket = io.connect( 'http://' + params.server || client_conf.central_server_host );
+        state.socket = io.connect( 'http://' + (params.server || client_conf.central_server_host) );
 
         state.socket.on( 'connect', ()=>this.onConnect() );
         state.socket.on( 'sysupdate', d=>this.onSystemUpdate(d) );
