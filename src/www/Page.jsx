@@ -3,13 +3,13 @@ import { Record } from 'type-r'
 import * as queryString from 'query-string'
 import * as io from 'socket.io-client'
 import { GlobalState } from "../SystemState.js";
+import * as client_conf from '../client-conf.json'
 import './styles.less'
 
 @define
 export class State extends Record {
     static attributes = {
         name   : 'Unknown dino',
-        host   : '127.0.0.1:8001',
         sys    : GlobalState,
         socket : null
     };
@@ -27,7 +27,7 @@ export class View extends React.Component {
 
         state.set( params );
 
-        state.socket = io.connect( 'http://' + state.host );
+        state.socket = io.connect( 'http://' + params.server || client_conf.central_server_host );
 
         state.socket.on( 'connect', ()=>this.onConnect() );
         state.socket.on( 'sysupdate', d=>this.onSystemUpdate(d) );

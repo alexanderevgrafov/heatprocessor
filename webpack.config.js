@@ -2,7 +2,7 @@ let webpack = require('webpack');
 let path = require('path');
 //let Clean                 = require( 'clean-webpack-plugin' );
 
-let dist = path.join(__dirname, process.env.WEBPACK_DIST || 'dist');
+let dist = path.join(__dirname, process.env.WEBPACK_DIST || 'dist/www');
 
 let config = {
     mode: 'development',
@@ -42,10 +42,6 @@ let config = {
                 test    : /\.jsx?$/,
                 exclude : /(node_modules)/,
                 loader: 'ts-loader'
-            },
-            {
-                test: /\.json$/,
-                loader: "json-loader"
             },
             {
                 test: /\.less$/,
