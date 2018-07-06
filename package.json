@@ -5,9 +5,10 @@
   "private": true,
   "scripts": {
     "make": "node_modules/.bin/webpack",
+    "ts": "node_modules/.bin/tsc",
+    "build": "npm run make && ts",
     "watch": "npm run make-watcher",
-    "make-watcher": "node_modules/.bin/webpack --progress --colors --watch --env.develop",
-    "build": "npm run make && tsc"
+    "make-watcher": "node_modules/.bin/webpack --progress --colors --watch --env.develop"
   },
   "repository": {
     "type": "git",
