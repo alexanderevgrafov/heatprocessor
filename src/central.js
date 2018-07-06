@@ -15,6 +15,7 @@ let express       = require( 'express' ),
 
 webserver_app.use( '/', express.static( __dirname + '/www' ) );//;
 web_server.listen( process.env.web_server_port );
+console.log('Serving port ', process.env.web_server_port, ' with ', __dirname + '/www' )
 
 /*---------------- Global state --------------------*/
 const SAVED_STATE_FILE = './saved_state',
