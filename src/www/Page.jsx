@@ -9,9 +9,10 @@ import './styles.less'
 @define
 export class State extends Record {
     static attributes = {
-        name   : 'Unknown dino',
-        sys    : GlobalState,
-        socket : null
+        name        : 'Unknown dino',
+        sys         : GlobalState,
+        isConnected : false,
+        socket      : null
     };
 
     get my(){ return this.sys.system[ this.name ] || {}}
@@ -29,21 +30,28 @@ export class View extends React.Component {
 
         state.socket = io.connect( 'http://' + (params.server || client_conf.central_server_host) );
 
-        state.socket.on( 'connect', ()=>this.onConnect() );
-        state.socket.on( 'sysupdate', d=>this.onSystemUpdate(d) );
+        state.socket.on( 'connect', () => this.onWsConnect() );
+        state.socket.on( 'disconnect', () => this.onWsDisconnect() );
+        state.socket.on( 'sysupdate', d => this.onSystemUpdate( d ) );
     }
 
-    onConnect() {
+    onWsConnect(){
         const { socket, name } = this.state;
 
         console.log( 'Connected to central server' );
         socket.emit( 'hola', { name } );
+        this.state.isConnected = true;
     }
 
-    onSystemUpdate( data) {
+    onWsDisconnect(){
+        console.log( 'Lost server connection' );
+        this.state.isConnected = false;
+    }
+
+    onSystemUpdate( data ){
         const { sys } = this.state;
 
         sys.set( data );
-        console.log('System update', data)
+        console.log( 'System update', data )
     }
 }

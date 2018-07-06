@@ -1,6 +1,7 @@
 import React, { define } from 'react-mvx'
 import * as ReactDOM from 'react-dom'
 import * as Page from "./Page.jsx";
+import { ConnectSign } from "./Controls.jsx";
 
 @define
 class TabletView extends React.Component {
@@ -47,7 +48,10 @@ class Application extends Page.View {
         const { name } = this.state,
               View     = name === 'tablet' ? TabletView : ModuleView;
 
-        return <div className={name + '-page page'}><View state={this.state}/></div>
+        return <div className={name + '-page page'}>
+            <View state={this.state}/>
+            <ConnectSign connected={this.state.isConnected}/>
+        </div>
     }
 }
 

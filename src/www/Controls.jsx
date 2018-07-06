@@ -163,3 +163,5 @@ export class Slider extends React.Component {
     }
 }
 
+export const ConnectSign = ( { connected } ) => <div className={cx( 'connect-sign', { connected } )}>{connected ? '' :
+                                                                                                      'No server connection'}</div>;

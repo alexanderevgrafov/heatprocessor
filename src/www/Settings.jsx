@@ -1,7 +1,7 @@
 import React, { define, Link } from 'react-mvx'
 import * as ReactDOM from 'react-dom'
 import * as Page from "./Page.jsx";
-import { Slider, NumberInput, Input, Select } from "./Controls.jsx";
+import { Slider, NumberInput, Input, Select, ConnectSign } from "./Controls.jsx";
 import { GlobalState, MonoSettings } from "../SystemState.js";
 import cx from "classnames"
 
@@ -70,11 +70,8 @@ class Sliders extends React.Component {
 @define
 class PageState extends Page.State {
     static attributes = {
-        name        : 'Settings',
-        isConnected : false,
-        sys         : GlobalState.has.watcher( function(){this.getOwner().onSystemChange()} ),
-
-
+        name      : 'Settings',
+        sys       : GlobalState.has.watcher( function(){this.getOwner().onSystemChange()} ),
         fake_mono : '[2,3,0,0,0,0,0,0]'
     }
 }
@@ -86,13 +83,6 @@ class Application extends Page.View {
     componentWillMount(){
         this.emitChangesDebounced = _.debounce( this.emitChanges, 500 );
     }
-
-    onConnect(){
-        const { socket, name } = this.state;
-
-        socket.emit( 'hola', { name } );
-        this.state.isConnected = true;
-    };
 
     onSystemChange(){
         this.emitChangesDebounced()
@@ -129,6 +119,8 @@ class Application extends Page.View {
 
             <Input valueLink={this.state.linkAt( 'fake_mono' )}/>
             <button onClick={this.fakeMonoData}>Send mono data</button>
+
+            <ConnectSign connected={this.state.isConnected}/>
         </div>
     }
 }
